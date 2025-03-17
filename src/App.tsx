@@ -1,11 +1,18 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { HStack } from "@chakra-ui/react";
+import Filter from "./features/filter/Filter";
+import { Toaster } from "./components/ui/toaster";
+import MapContainer from "./features/mapContainer/MapContainer";
 
 function App() {
   return (
-    <Box p={4}>
-      <Heading>Sample Weather App</Heading>
-    </Box>
-  )
+    <>
+      <HStack>
+        <Filter />
+        <MapContainer />
+      </HStack>
+      <Toaster />
+    </>
+  );
 }
 
-export default App
+export default App;
