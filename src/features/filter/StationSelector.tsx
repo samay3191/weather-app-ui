@@ -1,10 +1,10 @@
+import InputSelector from "@/components/InputSelector";
 import { useStore } from "@/store/store";
-import { Portal, Select, createListCollection } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 const StationSelector = () => {
   const [stationList, setStationList] = useState<
-    { label: string; value: number }[]
+    { label: string; value: string }[]
   >([]);
   const stations = useStore((state) => state.stations);
   const currentState = useStore((state) => state.currentState);
@@ -20,49 +20,23 @@ const StationSelector = () => {
     ) {
       const newList = stations
         .filter((station) => station.state === currentState[0])
-        .map((station) => ({ label: station.ws_name, value: station.id }));
+        .map((station) => ({
+          label: station.ws_name,
+          value: station.id.toString(),
+        }));
       setStationList(newList);
     }
   }, [stations, currentStation, currentState]);
 
-  const stationOptions = createListCollection({
-    items: stationList,
-  });
-
   return (
-    <Select.Root
-      pt={"4"}
-      collection={stationOptions}
-      size="sm"
-      width="220px"
-      cursor={"pointer"}
+    <InputSelector
+      label="Select Weather Station"
+      placeHolder="Select weather station"
+      optionList={stationList}
       value={currentStation || []}
-      onValueChange={(e) => setCurrentStation(e.value)}
+      onChange={setCurrentStation}
       disabled={!currentState || currentState.length === 0}
-    >
-      <Select.HiddenSelect />
-      <Select.Label>Select Weather Station</Select.Label>
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select weather station" />
-        </Select.Trigger>
-        <Select.IndicatorGroup>
-          <Select.Indicator />
-        </Select.IndicatorGroup>
-      </Select.Control>
-      <Portal>
-        <Select.Positioner>
-          <Select.Content>
-            {stationOptions.items.map((option) => (
-              <Select.Item item={option} key={option.value}>
-                {option.label}
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Portal>
-    </Select.Root>
+    />
   );
 };
 
