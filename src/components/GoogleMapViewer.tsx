@@ -28,7 +28,7 @@ const GoogleMapViewer = () => {
   }, [stations, currentState, setFilteredStations]);
 
   if (filteredStations.length === 0) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (
@@ -47,6 +47,7 @@ const GoogleMapViewer = () => {
         {filteredStations &&
           filteredStations.map((station) => (
             <MarkerWithInfoWindow
+              key={station.id + station.ws_name}
               latitude={station.latitude}
               longitude={station.longitude}
               stationName={station.ws_name}

@@ -21,7 +21,7 @@ const MarkerWithInfoWindow: React.FC<MarkerWithInfoWindowInterface> = ({
   stationName,
   portfolio,
   stationId,
-  site
+  site,
 }) => {
   const [infowindowOpen, setInfowindowOpen] = useState(false);
   const [markerRef, marker] = useAdvancedMarkerRef();
@@ -32,7 +32,7 @@ const MarkerWithInfoWindow: React.FC<MarkerWithInfoWindowInterface> = ({
         ref={markerRef}
         onClick={() => setInfowindowOpen(true)}
         position={{ lat: latitude, lng: longitude }}
-        title={"AdvancedMarker that opens an Infowindow when clicked."}
+        title={`Marker for station ${stationName} - ${site}`}
       />
       {infowindowOpen && (
         <InfoWindow
