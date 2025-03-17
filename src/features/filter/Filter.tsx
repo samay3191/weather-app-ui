@@ -16,7 +16,7 @@ const Filter = () => {
   }, [stations, fetchStations]);
 
   return (
-    <Box p={"4"} shadow={"md"} height={"100vh"}>
+    <Box p={"4"} shadow={"lg"} height={"100vh"} zIndex={10}>
       <Heading pb={"4"}>Filters</Heading>
       <StateSelector />
       <StationSelector />
