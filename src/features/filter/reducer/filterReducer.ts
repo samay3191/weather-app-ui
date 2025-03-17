@@ -6,9 +6,12 @@ import { WeatherData, WeatherStation } from "@/types/types";
 export interface FilterState {
   status: ActionStatus;
   stations: WeatherStation[];
+  states: string[];
+  currentState: string[] | undefined;
   selectedStationId: string | null;
   selectedStationWeatherData: WeatherData | null;
   setStations: (data: WeatherStation[]) => void;
+  setCurrentState: (state: string[]) => void;
   fetchStations: () => Promise<void>;
   fetchWeatherData: (id: number) => Promise<void>;
 }
@@ -16,14 +19,18 @@ export interface FilterState {
 export const filterReducer = (set): FilterState => ({
   status: ActionStatus.IDLE,
   stations: [],
+  states: [],
+  currentState: undefined,
   selectedStationId: null,
   selectedStationWeatherData: null,
   setStations: (data: WeatherStation[]) => set({ stations: data }),
+  setCurrentState: (state: string[]) => set({ currentState: state }),
   fetchStations: async () => {
     set({ status: ActionStatus.LOADING });
     const fetchStationPromise = apiRequest("/weatherStations", "GET").then(
       (res) => {
-        set({ status: ActionStatus.SUCCESSFUL, stations: res });
+        const uniqueStates = [...new Set(res.map((item: WeatherStation) => item.state))];
+        set({ status: ActionStatus.SUCCESSFUL, stations: res, states: uniqueStates });
       }
     );
     toaster.promise(fetchStationPromise, {

@@ -1,6 +1,7 @@
 import { useStore } from "@/store/store";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
+import StateSelector from "./StateSelector";
 
 const Filter = () => {
   const stations = useStore((state) => state.stations);
@@ -14,7 +15,8 @@ const Filter = () => {
 
   return (
     <Box p={"4"} shadow={"md"} height={"100vh"}>
-      Filter
+      <Heading pb={"4"}>Filters</Heading>
+      <StateSelector />
     </Box>
   );
 };
