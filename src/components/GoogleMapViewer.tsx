@@ -1,9 +1,10 @@
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
-import MarkerWithInfoWindow from "./MarketWithInfoWindow";
 import { useStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import { WeatherStation } from "@/types/types";
 import { Spinner } from "@chakra-ui/react";
+import InfoWindowContainer from "@/features/mapContainer/InfoWindowContainer";
+import MarkerContainer from "@/features/mapContainer/MarkerContainer";
 
 const GoogleMapViewer = () => {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAP_API_KEY as string;
@@ -46,16 +47,12 @@ const GoogleMapViewer = () => {
       >
         {filteredStations &&
           filteredStations.map((station) => (
-            <MarkerWithInfoWindow
+            <MarkerContainer
               key={station.id + station.ws_name}
-              latitude={station.latitude}
-              longitude={station.longitude}
-              stationName={station.ws_name}
-              portfolio={station.portfolio}
-              stationId={station.id}
-              site={station.site}
+              station={station}
             />
           ))}
+        <InfoWindowContainer />
       </Map>
     </APIProvider>
   );

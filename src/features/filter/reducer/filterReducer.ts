@@ -8,7 +8,6 @@ export interface FilterState {
   stations: WeatherStation[];
   states: string[];
   currentState: string[] | undefined;
-  selectedStationId: string | null;
   setStations: (data: WeatherStation[]) => void;
   setCurrentState: (state: string[]) => void;
   fetchStations: () => Promise<void>;
@@ -19,7 +18,6 @@ export const filterReducer = (set): FilterState => ({
   stations: [],
   states: [],
   currentState: undefined,
-  selectedStationId: null,
   setStations: (data: WeatherStation[]) => set({ stations: data }),
   setCurrentState: (state: string[]) => set({ currentState: state }),
   fetchStations: async () => {
