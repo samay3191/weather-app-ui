@@ -6,20 +6,26 @@ import { WeatherStation } from "@/types/types";
 export interface FilterState {
   status: ActionStatus;
   stations: WeatherStation[];
+  setStations: (data: WeatherStation[]) => void;
   states: string[];
   currentState: string[] | undefined;
-  setStations: (data: WeatherStation[]) => void;
   setCurrentState: (state: string[]) => void;
+  currentStation: string[] | undefined;
+  setCurrentStation: (state: string[]) => void;
+  clearFilters: () => void;
   fetchStations: () => Promise<void>;
 }
 
 export const filterReducer = (set): FilterState => ({
   status: ActionStatus.IDLE,
   stations: [],
+  setStations: (data: WeatherStation[]) => set({ stations: data }),
   states: [],
   currentState: undefined,
-  setStations: (data: WeatherStation[]) => set({ stations: data }),
   setCurrentState: (state: string[]) => set({ currentState: state }),
+  currentStation: undefined,
+  setCurrentStation: (station: string[]) => set({ currentStation: station }),
+  clearFilters: () => set({ currentState: undefined, currentStation: undefined }),
   fetchStations: async () => {
     set({ status: ActionStatus.LOADING });
     const fetchStationPromise = apiRequest("/weatherStations", "GET").then(

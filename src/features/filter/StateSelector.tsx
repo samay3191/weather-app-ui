@@ -26,7 +26,8 @@ const StateSelector = () => {
       collection={stateOptions}
       size="sm"
       width="220px"
-      value={currentState}
+      cursor={"pointer"}
+      value={currentState || []}
       onValueChange={(e) => setCurrentState(e.value)}
     >
       <Select.HiddenSelect />
