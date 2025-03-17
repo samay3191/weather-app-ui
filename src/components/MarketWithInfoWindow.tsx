@@ -4,13 +4,15 @@ import {
   InfoWindow,
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
-import MarkerContent from "./MarkerContent";
+import MarkerContentContainer from "@/features/mapContainer/MarkerContentContainer";
 
 interface MarkerWithInfoWindowInterface {
   latitude: number;
   longitude: number;
   stationName: string;
   portfolio: string;
+  stationId: number;
+  site: string;
 }
 
 const MarkerWithInfoWindow: React.FC<MarkerWithInfoWindowInterface> = ({
@@ -18,6 +20,8 @@ const MarkerWithInfoWindow: React.FC<MarkerWithInfoWindowInterface> = ({
   longitude,
   stationName,
   portfolio,
+  stationId,
+  site
 }) => {
   const [infowindowOpen, setInfowindowOpen] = useState(false);
   const [markerRef, marker] = useAdvancedMarkerRef();
@@ -38,7 +42,7 @@ const MarkerWithInfoWindow: React.FC<MarkerWithInfoWindowInterface> = ({
           style={{ fontSize: "12px" }}
           headerContent={`${stationName} (${portfolio})`}
         >
-          <MarkerContent />
+          <MarkerContentContainer id={stationId} site={site} />
         </InfoWindow>
       )}
     </>

@@ -1,28 +1,54 @@
 import { WeatherData } from "@/types/types";
 import { Text, VStack } from "@chakra-ui/react";
+import { memo } from "react";
 
 interface MarkerContentInterface {
-  measurementData?: WeatherData[];
+  site: string;
+  measurementData: WeatherData[];
 }
 
 const MarkerContent: React.FC<MarkerContentInterface> = ({
-  measurementData = [],
+  site,
+  measurementData,
 }) => {
   return (
     <VStack
-      mt={"1"}
       p={"2"}
       rounded={"md"}
       border={"solid"}
       borderColor={"red.500"}
+      align={"baseline"}
+      gap={"0.5"}
     >
+      <Text
+        fontSize={"sm"}
+        fontWeight={"bold"}
+        borderBottom={"solid"}
+        mb={"2"}
+        pb={"1"}
+      >
+        {site}
+      </Text>
       {measurementData.map((data) => (
-        <Text fontSize={"xs"}>
-          {data.long_name}: {data.value} {data.unit}
+        <Text key={data.id} fontSize={"xs"} textAlign={"left"}>
+          <Text as={"span"} fontWeight={"bold"}>
+            {data.long_name}
+          </Text>
+          :
+          <Text as={"span"} pl={"1"} fontWeight={"bold"} color={"blue.solid"}>
+            {data.value}
+          </Text>{" "}
+          {data.unit}
         </Text>
       ))}
+      <Text pt={"3"}>
+        Last Fetched on{" "}
+        <Text as={"span"} fontWeight={"semibold"} color={"GrayText"}>
+          {measurementData[0].timestamp}
+        </Text>
+      </Text>
     </VStack>
   );
 };
 
-export default MarkerContent;
+export default memo(MarkerContent);

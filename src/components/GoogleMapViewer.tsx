@@ -51,6 +51,8 @@ const GoogleMapViewer = () => {
               longitude={station.longitude}
               stationName={station.ws_name}
               portfolio={station.portfolio}
+              stationId={station.id}
+              site={station.site}
             />
           ))}
       </Map>
