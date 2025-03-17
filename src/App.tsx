@@ -6,7 +6,7 @@ import MapContainer from "./features/mapContainer/MapContainer";
 function App() {
   return (
     <>
-      <HStack>
+      <HStack gap={"0"}>
         <Filter />
         <MapContainer />
       </HStack>

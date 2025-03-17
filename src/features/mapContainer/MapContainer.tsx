@@ -1,9 +1,10 @@
-import { Box, Heading } from "@chakra-ui/react";
+import GoogleMapViewer from "@/components/GoogleMapViewer";
+import { Box } from "@chakra-ui/react";
 
 const MapContainer = () => {
   return (
-    <Box p={4}>
-      <Heading>Sample Weather App</Heading>
+    <Box>
+      <GoogleMapViewer />
     </Box>
   );
 };
