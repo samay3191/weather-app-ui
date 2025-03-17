@@ -19,6 +19,7 @@ const GoogleMapViewer = () => {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAP_API_KEY as string;
   const stations = useStore((state) => state.stations);
   const currentState = useStore((state) => state.currentState);
+  const currentStation = useStore((state) => state.currentStation);
 
   const [filteredStations, setFilteredStations] = useState<WeatherStation[]>(
     []
@@ -32,18 +33,21 @@ const GoogleMapViewer = () => {
   );
 
   useEffect(() => {
-    if (stations && stations.length > 0) {
-      let updatedList: WeatherStation[] = [];
-      if (currentState && currentState.length > 0) {
-        const newStationList = stations.filter(
-          (station) => station.state === currentState[0]
-        );
-        updatedList = JSON.parse(JSON.stringify(newStationList));
-        setFilteredStations(newStationList);
-      } else {
-        updatedList = JSON.parse(JSON.stringify(stations));
-        setFilteredStations(stations);
+    if (!stations || stations.length === 0) return;
+  
+    let updatedList = stations;
+  
+    if (currentState?.length) {
+      updatedList = updatedList.filter(station => station.state === currentState[0]);
+  
+      if (currentStation?.length) {
+        updatedList = updatedList.filter(station => station.id.toString() === currentStation[0].toString());
       }
+    }
+  
+    setFilteredStations(updatedList);
+  
+    if (updatedList.length > 0) {
       setCameraProps({
         center: {
           lat: updatedList[0].latitude,
@@ -52,7 +56,7 @@ const GoogleMapViewer = () => {
         zoom: 5,
       });
     }
-  }, [stations, currentState, setFilteredStations]);
+  }, [stations, currentState, currentStation, setFilteredStations]);
 
   if (filteredStations.length === 0) {
     return <Spinner />;
