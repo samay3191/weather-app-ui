@@ -41,12 +41,14 @@ const MarkerContent: React.FC<MarkerContentInterface> = ({
           {data.unit}
         </Text>
       ))}
-      <Text pt={"3"}>
-        Last Fetched on{" "}
-        <Text as={"span"} fontWeight={"semibold"} color={"GrayText"}>
-          {measurementData[0].timestamp}
+      {measurementData?.length > 0 && measurementData[0].timestamp && (
+        <Text pt={"3"}>
+          Last Fetched on{" "}
+          <Text as={"span"} fontWeight={"semibold"} color={"GrayText"}>
+            {measurementData[0].timestamp}
+          </Text>
         </Text>
-      </Text>
+      )}
     </VStack>
   );
 };

@@ -20,7 +20,7 @@ export type WeatherData = {
   id: number;
   weather_station_id: number;
   variable_id: number;
-  value: string;
+  value: number;
   timestamp: string;
   name: string;
   long_name: string;
