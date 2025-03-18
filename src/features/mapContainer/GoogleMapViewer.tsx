@@ -7,7 +7,7 @@ import {
 import { useStore } from "@/store/store";
 import { useCallback, useEffect, useState } from "react";
 import { WeatherStation } from "@/types/types";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, Text, VStack } from "@chakra-ui/react";
 import InfoWindowContainer from "@/features/mapContainer/InfoWindowContainer";
 import MarkerContainer from "@/features/mapContainer/MarkerContainer";
 
@@ -34,19 +34,22 @@ const GoogleMapViewer = () => {
 
   useEffect(() => {
     if (!stations || stations.length === 0) return;
-  
     let updatedList = stations;
   
     if (currentState?.length) {
-      updatedList = updatedList.filter(station => station.state === currentState[0]);
-  
+      updatedList = updatedList.filter(
+        (station) => station.state === currentState[0]
+      );
+
       if (currentStation?.length) {
-        updatedList = updatedList.filter(station => station.id.toString() === currentStation[0].toString());
+        updatedList = updatedList.filter(
+          (station) => station.id.toString() === currentStation[0].toString()
+        );
       }
     }
-  
+
     setFilteredStations(updatedList);
-  
+
     if (updatedList.length > 0) {
       setCameraProps({
         center: {
@@ -59,7 +62,15 @@ const GoogleMapViewer = () => {
   }, [stations, currentState, currentStation, setFilteredStations]);
 
   if (filteredStations.length === 0) {
-    return <Spinner />;
+    return (
+      <VStack alignContent={"center"} width={"100%"}>
+        <Spinner />
+        <Text>Fetching Data...</Text>
+        <Text color={"gray.400"}>
+          Please make sure backend service is started
+        </Text>
+      </VStack>
+    );
   }
 
   return (
