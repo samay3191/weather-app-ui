@@ -1,19 +1,21 @@
-import { Box } from "@chakra-ui/react";
+import LogoutButton from "@/features/auth/LogoutButton";
+import { HStack, Text } from "@chakra-ui/react";
 
 const Header = () => {
   return (
-    <Box
+    <HStack
       py={"2"}
       px={"4"}
-      fontWeight={"semibold"}
       bgColor={"blue.500"}
-      color={"white"}
-      fontSize={"lg"}
-      shadow={"lg"}
       zIndex={11}
+      shadow={"lg"}
+      justify={"space-between"}
     >
-      Sample Weather App
-    </Box>
+      <Text color={"white"} fontSize={"lg"}>
+        Sample Weather App
+      </Text>
+      <LogoutButton />
+    </HStack>
   );
 };
 
