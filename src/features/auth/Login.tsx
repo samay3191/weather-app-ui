@@ -1,9 +1,17 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Button, Dialog, Portal, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Dialog,
+  HStack,
+  Portal,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import bgSvg from "@/assets/solar_vector.svg";
 
 const Login = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isLoading } = useAuth0();
 
   return (
     <Box
@@ -24,19 +32,37 @@ const Login = () => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>Sample Weather App</Dialog.Title>
+                <Dialog.Title>
+                  {isLoading ? "Almost there!" : "Sample Weather App"}
+                </Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
-                <Text pb={"8"}>
-                  Welcome to WeatherNow! Sign in to get real-time weather
-                  updates and forecasts tailored for you.
-                </Text>
-                <Button
-                  _hover={{ colorPalette: "teal" }}
-                  onClick={() => loginWithRedirect()}
-                >
-                  Sign in to Continue
-                </Button>
+                {isLoading ? (
+                  <HStack>
+                    <Spinner size="xl" borderWidth="4px" />
+                    <Text
+                      pl={"4"}
+                      fontSize="lg"
+                      fontWeight="medium"
+                      color="gray.600"
+                    >
+                      We’re logging you in...
+                    </Text>
+                  </HStack>
+                ) : (
+                  <>
+                    <Text pb={"8"}>
+                      Welcome to WeatherNow! Sign in to get real-time weather
+                      updates and forecasts tailored for you.
+                    </Text>
+                    <Button
+                      _hover={{ colorPalette: "teal" }}
+                      onClick={() => loginWithRedirect()}
+                    >
+                      Sign in to Continue
+                    </Button>
+                  </>
+                )}
               </Dialog.Body>
             </Dialog.Content>
           </Dialog.Positioner>
