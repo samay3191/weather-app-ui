@@ -10,8 +10,8 @@ import {
 import { create } from "zustand";
 
 // Combine the reducers
-export const useStore = create<FilterState & MapState & AuthState>((set) => ({
+export const useStore = create<FilterState & MapState & AuthState>((set, get) => ({
   ...authReducer(set),
-  ...filterReducer(set),
-  ...mapReducer(set),
+  ...filterReducer(set, get),
+  ...mapReducer(set, get),
 }));

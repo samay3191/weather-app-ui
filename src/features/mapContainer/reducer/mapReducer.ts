@@ -2,6 +2,7 @@ import { apiRequest } from "@/api";
 import { toaster } from "@/components/ui/toaster";
 import { ActionStatus } from "@/types/enums";
 import { WeatherData, WeatherStation } from "@/types/types";
+import { StateCreator } from "zustand";
 
 export interface MapState {
   mapStatus: ActionStatus;
@@ -17,7 +18,7 @@ export interface MapState {
   setSelectedStation: (station: WeatherStation) => void;
 }
 
-export const mapReducer = (set): MapState => ({
+export const mapReducer: StateCreator<MapState> = (set, get): MapState => ({
   mapStatus: ActionStatus.IDLE,
   currentMarker: null,
   setCurrentMarker: (marker: google.maps.marker.AdvancedMarkerElement | null) =>
@@ -29,9 +30,11 @@ export const mapReducer = (set): MapState => ({
   selectedStationWeatherData: [],
   fetchWeatherData: async (id: number) => {
     set({ mapStatus: ActionStatus.LOADING });
+    const token = get().token;
     const fetchWeatherDataPromise = apiRequest(
       `/weatherData/latest/weather-station/${id}`,
-      "GET"
+      "GET",
+      token
     )
       .then((res) => {
         set({
