@@ -5,6 +5,7 @@ import { WeatherData, WeatherStation } from "@/types/types";
 import { StateCreator } from "zustand";
 
 export interface MapState {
+  token: string;
   mapStatus: ActionStatus;
   currentMarker: google.maps.marker.AdvancedMarkerElement | null;
   setCurrentMarker: (
@@ -19,6 +20,7 @@ export interface MapState {
 }
 
 export const mapReducer: StateCreator<MapState> = (set, get): MapState => ({
+  token: "",
   mapStatus: ActionStatus.IDLE,
   currentMarker: null,
   setCurrentMarker: (marker: google.maps.marker.AdvancedMarkerElement | null) =>

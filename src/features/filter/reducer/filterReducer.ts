@@ -5,6 +5,7 @@ import { WeatherStation } from "@/types/types";
 import { StateCreator } from "zustand";
 
 export interface FilterState {
+  token: string; // Add token here
   status: ActionStatus;
   stations: WeatherStation[];
   setStations: (data: WeatherStation[]) => void;
@@ -18,6 +19,7 @@ export interface FilterState {
 }
 
 export const filterReducer: StateCreator<FilterState> = (set, get): FilterState => ({
+  token: "",
   status: ActionStatus.IDLE,
   stations: [],
   setStations: (data: WeatherStation[]) => set({ stations: data }),
@@ -32,9 +34,9 @@ export const filterReducer: StateCreator<FilterState> = (set, get): FilterState 
     const token = get().token;
     const fetchStationPromise = apiRequest("/weatherStations", "GET", token).then(
       (res) => {
-        const uniqueStates = [
+        const uniqueStates: string[] = [
           ...new Set(res.map((item: WeatherStation) => item.state)),
-        ];
+        ] as string[];
         set({
           status: ActionStatus.SUCCESSFUL,
           stations: res,
