@@ -20,7 +20,7 @@ const Filter = () => {
     <VStack
       p={"4"}
       shadow={"lg"}
-      height={"100vh"}
+      h={"calc(100vh - 44px)"}
       zIndex={10}
       justify={"space-between"}
     >

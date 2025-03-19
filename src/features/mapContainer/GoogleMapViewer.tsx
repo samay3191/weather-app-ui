@@ -80,7 +80,7 @@ const GoogleMapViewer = () => {
     <APIProvider apiKey={API_KEY}>
       <Map
         mapId={"AdvanceMapforPRAApp"}
-        style={{ width: "calc(100vw - 252px)", height: "100vh" }}
+        style={{ width: "calc(100vw - 252px)", height: "calc(100vh - 44px)" }}
         gestureHandling={"greedy"}
         disableDefaultUI
         {...cameraProps}
