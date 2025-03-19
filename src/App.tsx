@@ -9,19 +9,25 @@ import { useCallback, useEffect } from "react";
 import { useStore } from "./store/store";
 
 function App() {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
   const setToken = useStore((state) => state.setToken);
+  const setUser = useStore((state) => state.setUser);
 
   const setUpToken = useCallback(async () => {
     const token: string = await getAccessTokenSilently();
     setToken(token);
   }, [getAccessTokenSilently, setToken]);
 
+  const setUpUser = useCallback(() => {
+    setUser(user);
+  }, [user, setUser]);
+
   useEffect(() => {
     if (isAuthenticated) {
       setUpToken();
+      setUpUser();
     }
-  }, [isAuthenticated, setUpToken]);
+  }, [isAuthenticated, setUpToken, setUpUser]);
 
   if (!isAuthenticated) {
     return <Login />;
