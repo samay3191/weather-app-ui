@@ -1,3 +1,4 @@
+import { authReducer, AuthState } from "@/features/auth/reducer/authReducer";
 import {
   filterReducer,
   FilterState,
@@ -9,7 +10,8 @@ import {
 import { create } from "zustand";
 
 // Combine the reducers
-export const useStore = create<FilterState & MapState>((set) => ({
+export const useStore = create<FilterState & MapState & AuthState>((set) => ({
+  ...authReducer(set),
   ...filterReducer(set),
   ...mapReducer(set),
 }));
