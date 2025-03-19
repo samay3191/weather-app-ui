@@ -7,14 +7,15 @@ import StationSelector from "./StationSelector";
 import { LuFilter } from "react-icons/lu";
 
 const Filter = () => {
+  const token = useStore((state) => state.token);
   const stations = useStore((state) => state.stations);
   const fetchStations = useStore((state) => state.fetchStations);
 
   useEffect(() => {
-    if (!stations || stations.length === 0) {
+    if (token && (!stations || stations.length === 0)) {
       fetchStations();
     }
-  }, [stations, fetchStations]);
+  }, [stations, token, fetchStations]);
 
   return (
     <VStack
