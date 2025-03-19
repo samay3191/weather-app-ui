@@ -1,9 +1,15 @@
-const apiRequest = async (url: string, method: string, body?: object) => {
+const apiRequest = async (
+  url: string,
+  method: string,
+  token: string,
+  body?: object
+) => {
   const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}${url}`, {
     method,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: body ? JSON.stringify(body) : undefined,
   });
