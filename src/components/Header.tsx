@@ -1,5 +1,6 @@
 import LogoutButton from "@/features/auth/LogoutButton";
 import { HStack, Text } from "@chakra-ui/react";
+import WelcomeUser from "./WelcomeUser";
 
 const Header = () => {
   return (
@@ -14,7 +15,10 @@ const Header = () => {
       <Text color={"white"} fontSize={"lg"}>
         Sample Weather App
       </Text>
-      <LogoutButton />
+      <HStack>
+        <WelcomeUser />
+        <LogoutButton />
+      </HStack>
     </HStack>
   );
 };
