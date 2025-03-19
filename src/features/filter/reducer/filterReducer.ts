@@ -22,7 +22,7 @@ export const filterReducer = (set): FilterState => ({
   setStations: (data: WeatherStation[]) => set({ stations: data }),
   states: [],
   currentState: undefined,
-  setCurrentState: (state: string[]) => set({ currentState: state }),
+  setCurrentState: (state: string[]) => set({ currentState: state, currentStation: [] }),
   currentStation: undefined,
   setCurrentStation: (station: string[]) => set({ currentStation: station }),
   clearFilters: () => set({ currentState: undefined, currentStation: undefined }),

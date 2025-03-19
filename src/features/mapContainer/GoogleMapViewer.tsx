@@ -35,16 +35,19 @@ const GoogleMapViewer = () => {
   useEffect(() => {
     if (!stations || stations.length === 0) return;
     let updatedList = stations;
+    let zoomValue = 5;
   
     if (currentState?.length) {
       updatedList = updatedList.filter(
         (station) => station.state === currentState[0]
       );
+      zoomValue = 7;
 
       if (currentStation?.length) {
         updatedList = updatedList.filter(
           (station) => station.id.toString() === currentStation[0].toString()
         );
+        zoomValue = 8;
       }
     }
 
@@ -56,7 +59,7 @@ const GoogleMapViewer = () => {
           lat: updatedList[0].latitude,
           lng: updatedList[0].longitude,
         },
-        zoom: 5,
+        zoom: zoomValue,
       });
     }
   }, [stations, currentState, currentStation, setFilteredStations]);
